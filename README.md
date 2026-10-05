@@ -326,20 +326,6 @@ dotnet run --project SharePointExplorer.Modern.Tests.csproj -c Release --no-rest
 
 These modes currently use Windows authentication to the maintainer's lab server `SQL`, database `WSS_Content`, and fixed fixture identities/content expectations. They are not configurable acceptance checks for an arbitrary database; adapt the fixtures before using them elsewhere. Passing `--native` together with `--integration` or `--migration-integration` also runs the native integration diagnostics. Test output and logs go under `.scratch\`.
 
-## Create and publish a release
-
-The project retains its existing [Visual Studio Installer project](installer/Installer.vdproj). The [Installer publish profile](Properties/PublishProfiles/Installer.pubxml) supplies a self-contained application folder to that creator. Release configuration produces `setup.exe` and its matching MSI.
-
-5. If you also want repository download links, commit and push the generated `releases\v<version>` folder **after the release upload**. The release tag still identifies the source commit used for the build.
-
-Do not commit new binaries between building and uploading: that changes `HEAD`, so the compiled-commit check rejects them until rebuilt. Committing downloadable files to the repository and uploading a GitHub Release are separate actions.
-
-The repository is taken from the GitHub `origin` remote; use `-Repository owner/repository` to specify it explicitly. Authentication uses `GH_TOKEN`/`GITHUB_TOKEN` or the existing Git for Windows credential helper. The token needs repository **Contents: read and write** permission; it is not written to project files.
-
-The uploader verifies package hashes and the application assembly's compiled commit identity before contacting GitHub. A new release starts as a draft, receives all five assets, and is published only after uploads succeed. An existing version requires an explicit `-ReplaceAssets` option, or a new version. To opt into uploading from the Visual Studio post-build hook, set `SHAREPOINT_RELEASE_UPLOAD=1` in that Visual Studio process's environment; the same source/commit checks apply.
-
-The included v1.0.0 packages can be downloaded as supplied. Rebuild from your own current committed checkout before using the uploader to associate packages with that checkout's release tag.
-
 ## Project structure
 
 ```text
