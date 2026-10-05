@@ -1,0 +1,117 @@
+# SharePoint DB Explorer
+# Based on GitHub's VisualStudio.gitignore, trimmed to what this repository
+# produces. Build output and caches are ignored; the versioned release
+# downloads under releases/ are kept (see the end of this file).
+
+## Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]64/
+[Bb]uild[Ll]og.*
+*.log
+artifacts/
+publish/
+
+## Repository-local SDK build output, NuGet packages and tool caches
+## (redirected here by Directory.Build.props and the VS Code tasks)
+.scratch/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.rsuser
+*.userosscache
+*.userprefs
+*.sln.docstates
+*.VC.db
+*.VC.opendb
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+## Visual Studio Installer project output (installer/Debug, installer/Release)
+installer/[Dd]ebug/
+installer/[Rr]elease/
+
+## Publish profiles: Installer.pubxml is shared; per-user settings are not
+*.pubxml.user
+
+## VS Code: keep the shared workspace settings only
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## Alternative IDE caches
+.idea/
+*.sln.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Test results and coverage
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+## Files the application writes when run from the repository folder
+exports/
+reports/
+
+## Restored databases and backups (contain private source data)
+*.bak
+*.bkp
+*.trn
+*.mdf
+*.ndf
+*.ldf
+
+## Signing keys and secrets: never commit these
+*.pfx
+*.p12
+*.snk
+*.pvk
+*.publishsettings
+.env
+.env.*
+
+## Operating system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+## Keep only the intended versioned downloads in releases/.
+## This does not override the secret/database exclusions for other files.
+/releases/*
+!/releases/README.md
+!/releases/v*/
+/releases/v*/*
+!/releases/v*/setup.exe
+!/releases/v*/SharePointDatabaseExplorerSetup.msi
+!/releases/v*/SharePointDatabaseExplorer-v*-win-x64.zip
+!/releases/v*/SharePointDatabaseExplorerInstaller-v*-win-x64.zip
+!/releases/v*/SHA256SUMS.txt

@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12224.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharePointExplorer.Desktop", "SharePointExplorer.Desktop.csproj", "{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharePointExplorer.Recovery", "SharePointExplorer.Recovery.csproj", "{CBE1693A-857C-4679-AED8-5C55FA58279D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharePointExplorer.Modern.Tests", "SharePointExplorer.Modern.Tests.csproj", "{9307A12C-57C7-426D-AB03-D67146847677}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "installer\Installer.vdproj", "{324B20A5-6A15-0827-C7D2-B788E1D8FDE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Debug|Any CPU.Build.0 = Debug|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Debug|x64.ActiveCfg = Debug|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Debug|x64.Build.0 = Debug|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Release|Any CPU.ActiveCfg = Release|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Release|Any CPU.Build.0 = Release|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Release|x64.ActiveCfg = Release|x64
+		{C5D21D6A-4C8B-40CE-BB7B-733216B3F17C}.Release|x64.Build.0 = Release|x64
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Debug|x64.Build.0 = Debug|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Release|x64.ActiveCfg = Release|Any CPU
+		{CBE1693A-857C-4679-AED8-5C55FA58279D}.Release|x64.Build.0 = Release|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Debug|x64.Build.0 = Debug|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Release|x64.ActiveCfg = Release|Any CPU
+		{9307A12C-57C7-426D-AB03-D67146847677}.Release|x64.Build.0 = Release|Any CPU
+		{324B20A5-6A15-0827-C7D2-B788E1D8FDE7}.Debug|Any CPU.ActiveCfg = Debug
+		{324B20A5-6A15-0827-C7D2-B788E1D8FDE7}.Debug|x64.ActiveCfg = Debug
+		{324B20A5-6A15-0827-C7D2-B788E1D8FDE7}.Release|Any CPU.ActiveCfg = Release
+		{324B20A5-6A15-0827-C7D2-B788E1D8FDE7}.Release|x64.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD0A92E5-4A96-4187-86F4-89B95DE9C762}
+	EndGlobalSection
+EndGlobal

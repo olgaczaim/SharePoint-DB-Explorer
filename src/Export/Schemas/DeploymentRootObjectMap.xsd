@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:deployment-rootobjectmap-schema" elementFormDefault="qualified" xmlns="urn:deployment-rootobjectmap-schema" xmlns:mstns="urn:deployment-rootobjectmap-schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="urn:deployment-rootobjectmap-schema">
+  <xs:include id="WSS" schemaLocation="wsswire_DeploymentRootObjectMap.xsd" />
+  <xs:simpleType name="SPDeploymentObjectType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Web" />
+      <xs:enumeration value="ListItem" />
+      <xs:enumeration value="File" />
+      <xs:enumeration value="List" />
+      <xs:enumeration value="Folder" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SPRootObject">
+    <xs:attribute name="Id" type="core:UniqueIdentifierWithoutBraces" use="required" />
+    <xs:attribute name="Type" type="SPDeploymentObjectType" use="required" />
+    <xs:attribute name="ParentId" type="core:UniqueIdentifierWithoutBraces" use="required" />
+    <xs:attribute name="WebUrl" type="xs:string" use="required" />
+    <xs:attribute name="Url" type="xs:string" use="required" />
+    <xs:attribute name="IsDependency" type="core:truefalse_Only_Lowercase" use="required" />
+  </xs:complexType>
+  <xs:complexType name="SPRootObjects">
+    <xs:sequence>
+      <xs:element name="RootObject" type="SPRootObject" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RootObjects" type="SPRootObjects" />
+</xs:schema>

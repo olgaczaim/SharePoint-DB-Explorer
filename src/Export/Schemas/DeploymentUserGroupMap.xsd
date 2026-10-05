@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  
+ <xs:schema
+     targetNamespace="urn:deployment-usergroupmap-schema"
+     elementFormDefault="qualified"
+     xmlns="urn:deployment-usergroupmap-schema"
+     xmlns:mstns="urn:deployment-usergroupmap-schema"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:core="urn:deployment-usergroupmap-schema">
+  
+ <xs:include
+     id="WSS"
+     schemaLocation="wsswire_DeploymentUserGroupMap.xsd" />
+  
+ <xs:simpleType name="String255">
+     <xs:restriction base="xs:string">
+         <xs:maxLength value="255"/>
+     </xs:restriction>
+ </xs:simpleType>
+  
+ <xs:simpleType name="String255NonEmpty">
+     <xs:restriction base="xs:string">
+         <xs:minLength value="1"/>
+         <xs:maxLength value="255"/>
+     </xs:restriction>
+ </xs:simpleType>
+  
+ <xs:simpleType name="String512">
+     <xs:restriction base="xs:string">
+         <xs:maxLength value="512"/>
+     </xs:restriction>
+ </xs:simpleType>
+  
+ <xs:complexType name="DeploymentUser">
+     <xs:attribute name="Id" type="xs:int" use="required" />
+     <xs:attribute name="Name" type="String255NonEmpty" use="required" />
+     <xs:attribute name="Login" type="String255NonEmpty" use="required" />
+     <xs:attribute name="Email" type="String255" use="optional" />
+     <xs:attribute name="IsDomainGroup" type="core:truefalse_Only_Lowercase"
+                   use="optional" default="false" />
+     <xs:attribute name="IsSiteAdmin" type="core:truefalse_Only_Lowercase"
+                   use="optional"  default="false" />
+     <xs:attribute name="SystemId" type="xs:base64Binary" use="required" />
+     <xs:attribute name="IsDeleted" type="core:truefalse_Only_Lowercase"
+                   use="required" />
+     <xs:attribute name="MobilePhone" type="xs:string" use="optional" />
+     <xs:attribute name="Flags" type="xs:int" use="optional" />
+ </xs:complexType>
+  
+ <xs:complexType name="DeploymentUsers">
+     <xs:sequence>
+         <xs:element name="User" type="DeploymentUser"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="DeploymentGroupMember">
+     <xs:attribute name="UserId" type="xs:int" use="required" />
+ </xs:complexType>
+  
+ <xs:complexType name="DeploymentGroup">
+     <xs:sequence>
+         <xs:element name="Member" type="DeploymentGroupMember"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+     <xs:attribute name="Id" type="xs:int" use="required" />
+     <xs:attribute name="Name" type="String255NonEmpty" use="required" />
+     <xs:attribute name="Owner" type="xs:int" use="required" />
+     <xs:attribute name="OwnerIsUser" type="core:truefalse_Only_Lowercase"
+                   use="required" />
+     <xs:attribute name="Description" type="String512" use="optional" />
+     <xs:attribute name="OnlyAllowMembersViewMembership"
+                   type="core:truefalse_Only_Lowercase"
+                   use="optional" default="false" />
+     <xs:attribute name="AllowMembersEditMembership"
+                   type="core:truefalse_Only_Lowercase"
+                   use="optional" default="false" />
+     <xs:attribute name="AllowRequestToJoinLeave"
+                   type="core:truefalse_Only_Lowercase"
+                   use="optional" default="false" />
+     <xs:attribute name="AutoAcceptRequestToJoinLeave"
+                   type="core:truefalse_Only_Lowercase"
+                   use="optional" default="false" />
+     <xs:attribute name="RequestToJoinLeaveEmailSetting"
+                   type="String255" use="optional" />
+ </xs:complexType>
+  
+ <xs:complexType name="DeploymentGroups">
+     <xs:sequence>
+         <xs:element name="Group" type="DeploymentGroup"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="DeploymentUserGroupMap">
+     <xs:sequence>
+         <xs:element name="Users" type="DeploymentUsers"
+                     minOccurs="0" maxOccurs="1" />
+         <xs:element name="Groups" type="DeploymentGroups"
+                     minOccurs="0" maxOccurs="1" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:element name="UserGroupMap" type="DeploymentUserGroupMap" />
+  
+ </xs:schema>

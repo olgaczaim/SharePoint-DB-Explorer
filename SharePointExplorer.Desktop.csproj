@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>SharePointExplorer.WinUI</RootNamespace>
+    <AssemblyName>SharePointExplorer.Desktop</AssemblyName>
+    <ApplicationTitle>SharePoint Database Explorer</ApplicationTitle>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>true</SelfContained>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <PublishTrimmed>false</PublishTrimmed>
+    <PublishSingleFile>false</PublishSingleFile>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>annotations</Nullable>
+    <ApplicationManifest>src\WinUI\app.manifest</ApplicationManifest>
+    <ApplicationIcon>src\WinUI\Assets\AppIcon.ico</ApplicationIcon>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <PackageIcon>shortcut.png</PackageIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="src\WinUI\App.xaml" />
+    <Page Include="src\WinUI\**\*.xaml" Exclude="src\WinUI\App.xaml" />
+    <Compile Include="src\WinUI\**\*.cs" />
+    <Compile Include="src\Desktop\*.cs;src\Desktop\ViewModels\**\*.cs" />
+    <!-- The title bar icon is loaded from this file at run time. -->
+    <Content Include="src\WinUI\Assets\AppIcon.ico" Link="Assets\AppIcon.ico" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="src\WinUI\Assets\shortcut.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260921001" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.9169" />
+    <ProjectReference Include="SharePointExplorer.Recovery.csproj" />
+  </ItemGroup>
+</Project>
+

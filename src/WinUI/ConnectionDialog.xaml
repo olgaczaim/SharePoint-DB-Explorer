@@ -1,0 +1,51 @@
+﻿<ContentDialog
+    x:Class="SharePointExplorer.WinUI.ConnectionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Open a restored database"
+    PrimaryButtonText="Connect"
+    CloseButtonText="Cancel"
+    DefaultButton="Primary"
+    PrimaryButtonClick="ConnectClicked"
+    Opened="DialogOpened"
+    Closing="DialogClosing"
+    Closed="DialogClosed">
+    <ScrollViewer MaxHeight="650" VerticalScrollBarVisibility="Auto">
+        <StackPanel Width="440" Spacing="16">
+            <TextBlock Text="Browse SharePoint content directly from SQL Server." Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+            <StackPanel x:Name="ConnectionFields" Spacing="16">
+                <TextBox x:Name="ServerBox" Header="SQL Server or instance" PlaceholderText="Enter a server or server\instance" TextChanged="SettingsChanged" AutomationProperties.Name="SQL Server or instance" />
+                <ComboBox x:Name="AuthenticationBox" Header="Authentication" HorizontalAlignment="Stretch" SelectedIndex="0" SelectionChanged="SettingsChanged" AutomationProperties.Name="Authentication">
+                    <ComboBoxItem Content="Windows authentication (current user)" />
+                    <ComboBoxItem Content="SQL Server authentication" />
+                </ComboBox>
+                <TextBlock x:Name="CurrentUserText" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                <Grid x:Name="CredentialsPanel" ColumnSpacing="12" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="UsernameBox" Header="Username" TextChanged="SettingsChanged" AutomationProperties.Name="SQL login username" />
+                    <PasswordBox x:Name="PasswordBox" Grid.Column="1" Header="Password" PasswordChanged="SettingsChanged" AutomationProperties.Name="SQL login password" />
+                </Grid>
+                <Grid ColumnSpacing="8">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <ComboBox x:Name="DatabaseBox" Header="Content database" PlaceholderText="Select or enter a database" IsEditable="True" HorizontalAlignment="Stretch" DropDownOpened="DatabaseDropDownOpened" AutomationProperties.Name="Content database" />
+                    <Button x:Name="RefreshDatabasesButton" Grid.Column="1" VerticalAlignment="Bottom" Click="RefreshDatabasesClicked" ToolTipService.ToolTip="Connect to SQL Server and load accessible databases" AutomationProperties.Name="Load database list">
+                        <TextBlock Text="Load databases" />
+                    </Button>
+                </Grid>
+                <TextBlock x:Name="DiscoveryText" Text="Enter your server and authentication, then load databases." TextWrapping="Wrap" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Expander Header="Connection options" HorizontalAlignment="Stretch">
+                    <StackPanel Spacing="12">
+                        <CheckBox x:Name="EncryptBox" Content="Encrypt SQL connection" IsChecked="True" Checked="SettingsChanged" Unchecked="SettingsChanged" />
+                        <CheckBox x:Name="TrustCertificateBox" Content="Trust server certificate" IsChecked="True" Checked="SettingsChanged" Unchecked="SettingsChanged" />
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+            <StackPanel x:Name="ConnectingPanel" Orientation="Horizontal" Spacing="12" Visibility="Collapsed">
+                <ProgressRing IsActive="True" Width="20" Height="20" />
+                <TextBlock Text="Connecting and loading sites..." VerticalAlignment="Center" />
+            </StackPanel>
+            <InfoBar x:Name="ConnectionError" Severity="Error" IsOpen="False" IsClosable="False" Title="Could not connect" />
+            <TextBlock Text="Credentials are used for this connection and are not saved." Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

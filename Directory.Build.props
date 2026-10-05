@@ -1,0 +1,9 @@
+﻿<Project>
+  <PropertyGroup>
+    <BaseOutputPath>$(MSBuildThisFileDirectory).scratch\build\$(MSBuildProjectName)\</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+    <NuGetLockFilePath>$(MSBuildProjectDirectory)\$(MSBuildProjectName).packages.lock.json</NuGetLockFilePath>
+    <RestorePackagesPath>$(MSBuildThisFileDirectory).scratch\nuget\packages</RestorePackagesPath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  
+ <xs:schema
+     targetNamespace="urn:deployment-systemdata-schema"
+     elementFormDefault="qualified"
+     xmlns="urn:deployment-systemdata-schema"
+     xmlns:mstns="urn:deployment-systemdata-schema"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:core="urn:deployment-systemdata-schema">
+  
+ <xs:include
+     id="WSS"
+     schemaLocation="wsswire_DeploymentSystemData.xsd" />
+  
+ <xs:complexType name="SPSchemaVersion">
+     <xs:attribute name="Version" type="xs:string" use="required"/>
+     <xs:attribute name="Build" type="BuildVersion" use="required" />
+     <xs:attribute name="DatabaseVersion" type="xs:nonNegativeInteger"
+                   use="required" />
+     <xs:attribute name="SiteVersion" type="xs:string" use="required" />
+     <xs:attribute name="ObjectsProcessed" type="xs:int" />
+ </xs:complexType>
+  
+ <xs:complexType name="SPManifestFiles">
+     <xs:sequence>
+         <xs:element name="ManifestFile" type="SPManifestFile"
+                     minOccurs="1" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="SPSystemObjects">
+     <xs:sequence>
+         <xs:element name="SystemObject" type="SPSystemObject"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="SPSystemObject">
+     <xs:attribute name="Id" type="core:UniqueIdentifierWithoutBraces"
+                   use="required" />
+     <xs:attribute name="Type" use="required" >
+         <xs:simpleType>
+             <xs:restriction base="xs:string">
+                 <xs:enumeration value="Web" />
+                 <xs:enumeration value="Folder" />
+                 <xs:enumeration value="List" />
+                 <xs:enumeration value="ListItem" />
+                 <xs:enumeration value="File" />
+             </xs:restriction>
+         </xs:simpleType>
+     </xs:attribute>
+     <xs:attribute name="Url" type="xs:string" use="required" />
+ </xs:complexType>
+  
+ <xs:complexType name="SPManifestFile">
+     <xs:attribute name="Name" type="xs:string" use="required" />
+ </xs:complexType>
+  
+ <xs:complexType name="SPSystemData">
+     <xs:sequence>
+         <xs:element name="SchemaVersion" type="SPSchemaVersion"
+                     minOccurs="1" maxOccurs="1" />
+         <xs:element name="ManifestFiles" type="SPManifestFiles"
+                     minOccurs="1" maxOccurs="1" />
+         <xs:element name="SystemObjects" type="SPSystemObjects"
+                     minOccurs="1" maxOccurs="1" />
+         <xs:element name="RootWebOnlyLists" type="SPRootWebOnlyLists"
+                     minOccurs="0" maxOccurs="1" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="SPRootWebOnlyLists">
+     <xs:sequence>
+         <xs:element name="List" type="SPRootWebOnlyList"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="SPRootWebOnlyList">
+     <xs:attribute name="Id" type="core:UniqueIdentifierWithoutBraces"
+                   use="required" />
+ </xs:complexType>
+  
+ <xs:simpleType name="BuildVersion">
+     <xs:restriction base="xs:string">
+         <xs:pattern value="\d+\.\d+\.\d+\.\d+" />
+     </xs:restriction>
+ </xs:simpleType>
+  
+ <xs:element name="SystemData" type="SPSystemData" />
+  
+ </xs:schema>

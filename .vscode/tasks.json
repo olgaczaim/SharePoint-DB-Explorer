@@ -1,0 +1,75 @@
+﻿{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build SharePoint Explorer",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["publish", "${workspaceFolder}/SharePointExplorer.Desktop.csproj", "--configuration", "Release", "-p:Platform=x64", "--output", "${workspaceFolder}/bin/Desktop"],
+      "options": { "cwd": "${workspaceFolder}", "env": { "DOTNET_CLI_HOME": "${workspaceFolder}/.scratch/dotnet", "NUGET_HTTP_CACHE_PATH": "${workspaceFolder}/.scratch/nuget/http", "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false", "DOTNET_ADD_GLOBAL_TOOLS_TO_PATH": "false", "DOTNET_CLI_TELEMETRY_OPTOUT": "1" } },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Run SharePoint Explorer Desktop",
+      "type": "process",
+      "command": "${workspaceFolder}/bin/Desktop/SharePointExplorer.Desktop.exe",
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": "Build SharePoint Explorer",
+      "problemMatcher": []
+    },
+    {
+      "label": "Test recovery and view models",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["run", "--project", "${workspaceFolder}/SharePointExplorer.Modern.Tests.csproj", "--configuration", "Release"],
+      "options": { "cwd": "${workspaceFolder}", "env": { "DOTNET_CLI_HOME": "${workspaceFolder}/.scratch/dotnet", "NUGET_HTTP_CACHE_PATH": "${workspaceFolder}/.scratch/nuget/http", "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false", "DOTNET_ADD_GLOBAL_TOOLS_TO_PATH": "false", "DOTNET_CLI_TELEMETRY_OPTOUT": "1" } },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Test native WinUI controls",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["run", "--project", "${workspaceFolder}/SharePointExplorer.Modern.Tests.csproj", "--configuration", "Release", "--", "--native"],
+      "options": { "cwd": "${workspaceFolder}", "env": { "DOTNET_CLI_HOME": "${workspaceFolder}/.scratch/dotnet", "NUGET_HTTP_CACHE_PATH": "${workspaceFolder}/.scratch/nuget/http", "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false", "DOTNET_ADD_GLOBAL_TOOLS_TO_PATH": "false", "DOTNET_CLI_TELEMETRY_OPTOUT": "1" } },
+      "dependsOn": "Build SharePoint Explorer",
+      "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "build",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "build",
+            "${workspaceFolder}/SharePointExplorer.Modern.Tests.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "publish",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "publish",
+            "${workspaceFolder}/SharePointExplorer.Modern.Tests.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "watch",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "watch",
+            "run",
+            "--project",
+            "${workspaceFolder}/SharePointExplorer.Modern.Tests.csproj"
+        ],
+        "problemMatcher": "$msCompile"
+    }
+  ]
+}

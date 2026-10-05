@@ -1,0 +1,28 @@
+# Normalize line endings in the repository; check out with native endings.
+* text=auto
+
+# Source and project files
+*.cs        text diff=csharp
+*.xaml      text
+*.csproj    text
+*.props     text
+*.pubxml    text
+*.xsd       text
+*.xml       text
+*.manifest  text
+*.json      text
+*.md        text diff=markdown
+
+# Windows-only formats that tools expect with CRLF line endings
+*.sln       text eol=crlf
+*.vdproj    text eol=crlf
+*.ps1       text eol=crlf
+
+# Binary files: never diff or convert
+*.ico       binary
+*.png       binary
+*.exe       binary
+*.msi       binary
+*.zip       binary
+*.dll       binary
+*.pdb       binary

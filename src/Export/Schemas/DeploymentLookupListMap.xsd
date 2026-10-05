@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  
+ <xs:schema
+     targetNamespace="urn:deployment-lookuplistmap-schema"
+     elementFormDefault="qualified"
+     xmlns="urn:deployment-lookuplistmap-schema"
+     xmlns:mstns="urn:deployment-lookuplistmap-schema"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:core="urn:deployment-lookuplistmap-schema">
+  
+ <xs:include
+     id="WSS"
+     schemaLocation="wsswire_DeploymentLookupListMap.xsd" />
+  
+ <xs:complexType name="SPLookupItem">
+     <xs:attribute name="Id" type="xs:int" use="required" />
+     <xs:attribute name="DocId" type="core:UniqueIdentifierWithoutBraces"
+                   use="required" />
+     <xs:attribute name="Url" type="xs:string" use="required" />
+     <xs:attribute name="Included" type="core:truefalse_Only_Lowercase"
+                   use="required" />
+ </xs:complexType>
+  
+ <xs:complexType name="SPLookupItems">
+     <xs:sequence>
+         <xs:element name="LookupItem" type="SPLookupItem"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="SPLookupList">
+     <xs:sequence>
+         <xs:element name="LookupItems" type="SPLookupItems"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+  
+     <xs:attribute name="Id" type="core:UniqueIdentifierWithoutBraces"
+                   use="required" />
+     <xs:attribute name="Url" type="xs:string" use="required" />
+     <xs:attribute name="Included" type="core:truefalse_Only_Lowercase"
+                   use="required" />
+ </xs:complexType>
+  
+ <xs:complexType name="SPLookupLists">
+     <xs:sequence>
+         <xs:element name="LookupList" type="SPLookupList"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:element name="LookupLists" type="SPLookupLists" />
+  
+ </xs:schema>

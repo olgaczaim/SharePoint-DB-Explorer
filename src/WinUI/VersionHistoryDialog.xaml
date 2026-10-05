@@ -1,0 +1,49 @@
+<ContentDialog
+    x:Class="SharePointExplorer.WinUI.VersionHistoryDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:SharePointExplorer.Desktop.ViewModels"
+    Title="Document versions"
+    PrimaryButtonText="Export version"
+    CloseButtonText="Close"
+    IsPrimaryButtonEnabled="False"
+    DefaultButton="Primary"
+    Opened="DialogOpened"
+    Closed="DialogClosed"
+    PrimaryButtonClick="ExportVersionClicked">
+    <ContentDialog.Resources><x:Double x:Key="ContentDialogMaxWidth">760</x:Double></ContentDialog.Resources>
+    <Grid MinWidth="440" MaxWidth="640" RowSpacing="14">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel Spacing="5">
+            <TextBlock x:Name="DocumentNameText" FontWeight="SemiBold" TextWrapping="Wrap"/>
+            <TextBlock x:Name="DocumentPathText" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="10">
+            <ProgressRing x:Name="VersionsLoadingRing" Width="20" Height="20" IsActive="True"/>
+            <TextBlock x:Name="VersionCountText" Text="Loading version history..." VerticalAlignment="Center" AutomationProperties.LiveSetting="Polite"/>
+        </StackPanel>
+        <InfoBar x:Name="VersionsInfo" Grid.Row="2" IsOpen="False" IsClosable="False"/>
+        <Grid Grid.Row="3" Padding="12,6" ColumnSpacing="12" Background="{ThemeResource SubtleFillColorSecondaryBrush}">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="72"/><ColumnDefinition Width="90"/><ColumnDefinition Width="75"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <TextBlock Text="Version" Style="{StaticResource CaptionTextBlockStyle}"/>
+            <TextBlock Grid.Column="1" Text="State" Style="{StaticResource CaptionTextBlockStyle}"/>
+            <TextBlock Grid.Column="2" Text="Size" Style="{StaticResource CaptionTextBlockStyle}"/>
+            <TextBlock Grid.Column="3" Text="Modified" Style="{StaticResource CaptionTextBlockStyle}"/>
+        </Grid>
+        <ListView x:Name="VersionsList" Grid.Row="4" MaxHeight="280" SelectionMode="Single"
+                  SelectionChanged="VersionSelectionChanged" IsEnabled="False"
+                  AutomationProperties.AutomationId="VersionsList" AutomationProperties.Name="Stored document versions">
+            <ListView.ItemContainerStyle><Style TargetType="ListViewItem"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="12,8"/></Style></ListView.ItemContainerStyle>
+            <ListView.ItemTemplate><DataTemplate x:DataType="vm:VersionViewModel">
+                <Grid ColumnSpacing="12" ToolTipService.ToolTip="{x:Bind StatusText}">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="72"/><ColumnDefinition Width="90"/><ColumnDefinition Width="75"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <TextBlock Text="{x:Bind VersionText}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{x:Bind StateText}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock Grid.Column="2" Text="{x:Bind SizeText}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock Grid.Column="3" Text="{x:Bind ModifiedText}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                </Grid>
+            </DataTemplate></ListView.ItemTemplate>
+        </ListView>
+        <TextBlock x:Name="VersionSelectionText" Grid.Row="5" Text="Choose a version, then select an export folder." TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+    </Grid>
+</ContentDialog>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  
+ <xs:schema
+     targetNamespace="urn:deployment-viewformlist-schema"
+     elementFormDefault="qualified"
+     xmlns="urn:deployment-viewformlist-schema"
+     xmlns:mstns="urn:deployment-viewformlist-schema"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:core="urn:deployment-viewformlist-schema">
+  
+ <xs:include
+     id="WSS"
+     schemaLocation="wsswire_DeploymentViewFormsList.xsd" />
+  
+ <xs:complexType name="SPViewFormsList">
+     <xs:sequence>
+         <xs:element name="ViewForm" type="SPViewForm"
+                     minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+ </xs:complexType>
+  
+ <xs:complexType name="SPViewForm">
+     <xs:attribute name="Id" type="core:UniqueIdentifierWithoutBraces"
+                   use="required" />
+     <xs:attribute name="Type" use="required" >
+         <xs:simpleType>
+             <xs:restriction base="xs:string">
+                 <xs:enumeration value="View" />
+                 <xs:enumeration value="Forms" />
+             </xs:restriction>
+         </xs:simpleType>
+     </xs:attribute>
+ </xs:complexType>
+  
+ <xs:element name="ViewFormsList" type="SPViewFormsList" />
+  
+ </xs:schema>

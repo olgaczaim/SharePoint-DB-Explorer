@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:deployment-exportsettings-schema" elementFormDefault="qualified" xmlns="urn:deployment-exportsettings-schema" xmlns:mstns="urn:deployment-exportsettings-schema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="urn:deployment-exportsettings-schema">
+  <xs:include id="WSS" schemaLocation="wsswire_DeploymentExportSettings.xsd" />
+  <xs:simpleType name="SPIncludeDescendants">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Content" />
+      <xs:enumeration value="All" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SPIncludeSecurity">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="WssOnly" />
+      <xs:enumeration value="All" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SPIncludeVersions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LastMajor" />
+      <xs:enumeration value="CurrentVersion" />
+      <xs:enumeration value="LastMajorAndMinor" />
+      <xs:enumeration value="All" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SPExportMethodType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ExportAll" />
+      <xs:enumeration value="ExportChanges" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SPExportChangeToken">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d+\;\d+\;[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12};\d+;\d+" />
+      <xs:maxLength value="120" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SPExportObjectCollection">
+    <xs:sequence>
+      <xs:element name="DeploymentObject" type="SPExportObject" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SPExportObject">
+    <xs:attribute name="Id" type="core:UniqueIdentifierWithoutBraces" use="required" />
+    <xs:attribute name="Type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Site" />
+          <xs:enumeration value="Web" />
+          <xs:enumeration value="ListItem" />
+          <xs:enumeration value="List" />
+          <xs:enumeration value="Folder" />
+          <xs:enumeration value="File" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ParentId" type="core:UniqueIdentifierWithoutBraces" use="required" />
+    <xs:attribute name="Url" type="xs:string" use="optional" />
+    <xs:attribute name="ExcludeChildren" type="core:truefalse_Only_Lowercase" use="required" />
+    <xs:attribute name="IncludeDescendants" type="SPIncludeDescendants" use="required" />
+    <xs:attribute name="ExportChangeToken" type="SPExportChangeToken" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="SPExportSettings">
+    <xs:sequence>
+      <xs:element name="ExportObjects" type="SPExportObjectCollection" />
+    </xs:sequence>
+    <xs:attribute name="SiteUrl" type="xs:string" use="required" />
+    <xs:attribute name="FileLocation" type="xs:string" use="required" />
+    <xs:attribute name="BaseFileName" type="xs:string" use="required" />
+    <xs:attribute name="IncludeSecurity" type="SPIncludeSecurity" use="required" />
+    <xs:attribute name="IncludeAlerts" type="core:truefalse_Only_Lowercase" default="false" />
+    <xs:attribute name="IncludeVersions" type="SPIncludeVersions" use="required" />
+    <xs:attribute name="ExportMethod" type="SPExportMethodType" use="required" />
+    <xs:attribute name="ExportPublicSchema" fixed="true" use="required" />
+    <xs:attribute name="ExcludeDependencies" type="core:truefalse_Only_Lowercase" use="required" />
+    <xs:attribute name="ExportFrontEndFileStreams" type="core:truefalse_Only_Lowercase" default="true" />
+    <xs:anyAttribute namespace="##any" processContents="skip" />
+  </xs:complexType>
+  <xs:element name="ExportSettings" type="SPExportSettings" />
+</xs:schema>

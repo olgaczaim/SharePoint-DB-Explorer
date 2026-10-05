@@ -1,0 +1,48 @@
+<ContentDialog
+    x:Class="SharePointExplorer.WinUI.ExportProgressDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SharePointExplorer.WinUI"
+    Title="Export selected files"
+    CloseButtonText="Cancel"
+    Opened="DialogOpened"
+    Closing="DialogClosing"
+    Closed="DialogClosed"
+    CloseButtonClick="CloseClicked">
+    <ContentDialog.Resources><x:Double x:Key="ContentDialogMaxWidth">760</x:Double></ContentDialog.Resources>
+    <Grid Width="640" RowSpacing="16">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel Spacing="6">
+            <TextBlock x:Name="ExportScopeText" Text="Checked files in the current folder" TextWrapping="Wrap" />
+            <TextBlock x:Name="DestinationText" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Spacing="8">
+            <ProgressBar x:Name="ExportProgress" Minimum="0" Maximum="1" Value="0" AutomationProperties.Name="File export progress" />
+            <TextBlock x:Name="ProgressText" Text="Preparing selected files..." AutomationProperties.LiveSetting="Polite" />
+            <TextBlock x:Name="CurrentFileText" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+        <TextBlock x:Name="CancellationNote" Grid.Row="2" Text="Cancel stops after the current file. Completed exports are kept." Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+        <InfoBar x:Name="SummaryInfo" Grid.Row="3" IsOpen="False" IsClosable="False" />
+        <ListView x:Name="ResultsList" Grid.Row="4" MaxHeight="250" SelectionMode="None" AutomationProperties.Name="Export results" Visibility="Collapsed">
+            <ListView.ItemTemplate><DataTemplate x:DataType="local:ExportResultRow">
+                <StackPanel Spacing="4" Margin="0,6">
+                    <Grid ColumnSpacing="16"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="1" Text="{x:Bind Status}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                    <TextBlock Text="{x:Bind Detail}" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource TextFillColorSecondaryBrush}" ToolTipService.ToolTip="{x:Bind Detail}" />
+                </StackPanel>
+            </DataTemplate></ListView.ItemTemplate>
+        </ListView>
+        <StackPanel x:Name="ResultActions" Grid.Row="5" Spacing="8" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <HyperlinkButton x:Name="OpenArchiveButton" Content="Open ZIP" Click="OpenArchiveClicked" Padding="0" Visibility="Collapsed" AutomationProperties.Name="Open exported ZIP archive" />
+                <HyperlinkButton x:Name="OpenFileButton" Content="Open file" Click="OpenFileClicked" Padding="0" Visibility="Collapsed" AutomationProperties.Name="Open exported document" />
+                <HyperlinkButton x:Name="OpenDestinationButton" Content="Open destination" Click="OpenDestinationClicked" Padding="0" AutomationProperties.Name="Open export destination" />
+                <HyperlinkButton x:Name="OpenReportButton" Content="Open report" Click="OpenReportClicked" Padding="0" AutomationProperties.Name="Open export report" />
+            </StackPanel>
+            <TextBlock x:Name="ArchiveReportNote" Text="The ZIP includes export-report.csv and summary.txt." TextWrapping="Wrap" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="Collapsed" />
+        </StackPanel>
+    </Grid>
+</ContentDialog>
+
