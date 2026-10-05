@@ -28,7 +28,6 @@ Use a restored, online copy of a database that you are authorized to access. Thi
 - [How it works](#how-it-works)
 - [Build from source](#build-from-source)
 - [Run the checks](#run-the-checks)
-- [Create and publish a release](#create-and-publish-a-release)
 - [Project structure](#project-structure)
 - [Limitations](#limitations)
 - [Contributing and security](#contributing-and-security)
@@ -330,44 +329,6 @@ These modes currently use Windows authentication to the maintainer's lab server 
 ## Create and publish a release
 
 The project retains its existing [Visual Studio Installer project](installer/Installer.vdproj). The [Installer publish profile](Properties/PublishProfiles/Installer.pubxml) supplies a self-contained application folder to that creator. Release configuration produces `setup.exe` and its matching MSI.
-
-### Create local downloadable packages
-
-From PowerShell in the repository:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File tools\Prepare-Release.ps1 -Version 1.0.1
-```
-
-The script normalizes the requested version to `major.minor.build`, updates the installer's product/package codes when its version changes, publishes to `bin\Installer`, invokes Visual Studio's existing installer build, reads the built MSI version, and packages these files:
-
-```text
-releases/v1.0.1/
-  setup.exe
-  SharePointDatabaseExplorerSetup.msi
-  SharePointDatabaseExplorerInstaller-v1.0.1-win-x64.zip
-  SharePointDatabaseExplorer-v1.0.1-win-x64.zip
-  SHA256SUMS.txt
-```
-
-Omit `-Version` to use the installer project's current version. The default action prepares local files only.
-
-You can also use the existing creator directly: in Visual Studio, set **Installer > ProductVersion**, accept a new product code when increasing it, choose **Release | x64**, then **Rebuild** the installer. Its post-build hook runs packaging against the existing build. `-UseExistingBuild` repackages an already built matching MSI and published application; it does not rebuild them.
-
-The root `.gitignore` excludes intermediate publish/build output while allowing the intended files under `releases/v<version>/`. Committing those packages makes them available through repository download links. Keeping binaries in Git history consumes space on every subsequent clone; GitHub Releases is the preferred ongoing distribution channel for larger/multiple versions.
-
-### Upload to GitHub Releases
-
-The uploader requires clean, committed application/installer source and a portable application built from that exact commit. Follow this order:
-
-1. Set the installer version/product code, make source changes, and complete the checks.
-2. Commit the application/installer changes and push the commit to GitHub.
-3. Rebuild the installer from that committed source, or run `Prepare-Release.ps1` without changing its version.
-4. Upload the matching prepared assets:
-
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File tools\Prepare-Release.ps1 -UseExistingBuild -Upload
-   ```
 
 5. If you also want repository download links, commit and push the generated `releases\v<version>` folder **after the release upload**. The release tag still identifies the source commit used for the build.
 
